@@ -29,7 +29,7 @@ export const AuthProvider = ({children}) =>{
             method:"GET",
             headers:{ 'Content-Type': 'application/json' },
             credentials:'include'
-          })
+          })  
           const result = await response.json()
           setUser(result.data)
           console.log("result", user)
@@ -40,7 +40,7 @@ export const AuthProvider = ({children}) =>{
         } catch (error) { 
         }
       }
-      getUserData()
+      getUserData
 
         setIsAuthenticated(true)
         setUserData(data)
