@@ -21,6 +21,7 @@ function AuthForm() {
   const [loading, setLoading] = useState(false);
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(""); // State for error messages
+  const [success, setSuccess] = useState(false);
 
   const handleLoginSubmit = async () => {
     setError(""); // Clear previous errors
@@ -76,6 +77,8 @@ function AuthForm() {
 
   const handleOtpSubmit = async () => {
     setLoading(true);
+    setSuccess(false); // Reset success state on new request
+    setError(null); // Clear any previous error messages
     try {
       const response = await fetch(
         "http://localhost:4000/api/v1/users/register/verify-otp",
@@ -93,19 +96,23 @@ function AuthForm() {
 
       if (response.ok) {
         setLoading(false);
-        alert('Registration successful!');
-        setActiveTab('login');
-        setStep('details');
-        setSignUpData({});
+        setSuccess(true); // Set success to true on successful verification
+        setSignUpData("");
+        setStep("details")
+        // alert('Registration successful!');
+        // Proceed to the next step or handle accordingly
       } else {
+        setLoading(false); // Stop loading if there's an error
         setError(result.message || "Invalid OTP.");
       }
     } catch (error) {
       console.error("Error:", error);
+      setLoading(false); // Stop loading on error
       setError("An error occurred during OTP verification.");
     }
   };
-
+ 
+  
   return (
     <Wrapper>
       <div className="auth-form-container">
@@ -129,7 +136,7 @@ function AuthForm() {
             Sign Up
           </button>
         </div>
-        {error && <div className="error-message">{error}</div>}{" "}
+        {error && <div className="error-message">{error}</div>}
         {/* Display error message */}
         {activeTab === "login" && (
           <div className="auth-form">
@@ -186,7 +193,7 @@ function AuthForm() {
                 />
                 {loading ? (
                   <>
-                    <p>Loading ...</p>
+                    <p style={{ color: "#007bff" }}>Loading ...</p>
                   </>
                 ) : (
                   <>
@@ -209,12 +216,12 @@ function AuthForm() {
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
                 />
-                <p>Request New OTP...</p>
-                {loading === true ? (
-                  <p>Verifying...</p> // Show this while loading
-                ) : loading === false ? (
-                  <p>Registration Success</p> // Show this after success
-                ) : null}
+                  {/* <p>Request New OTP...</p> */}
+                {loading && <p style={{ color: "#007bff" }}>Verifying...</p>} {/* Show loading text */}
+                {success && <p style={{ color: "green" }}>Registration Success</p>}{" "}
+                {/* Show success text */}
+                {/* {error && <p style={{ color: "red" }}>{error}</p>}{" "} */}
+                {/* Show error text */}
                 <button className="form-btn" onClick={handleOtpSubmit}>
                   Verify OTP
                 </button>
@@ -229,15 +236,14 @@ function AuthForm() {
 
 const Wrapper = styled.div`
   /* Container for the entire form */
-  
-  
+
   .auth-form-container {
     width: 400px;
     margin: 50px auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.4);
     background: #fff;
     // background:#c2dcff;
     font-family: Arial, sans-serif;
@@ -260,11 +266,13 @@ const Wrapper = styled.div`
     border-bottom: 2px solid transparent;
     background: #f9f9f9;
     transition: all 0.3s ease;
+    border-radius: 4px;
   }
 
   .auth-tabs .active {
     border-bottom: 2px solid #007bff;
-    background: #fff;
+    // background: #fff;
+    background:#cce4fc;
   }
 
   /* Input fields styling */
@@ -273,12 +281,15 @@ const Wrapper = styled.div`
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ddd;
+    // border:none;
+    // outline:none;
     border-radius: 4px;
+    // box-shadow:inset 0 4px 6px rgba(0, 0, 0, 0.2);
   }
-.auth-form p{
-text-align:center;
-font-size:1.5rem;
-}
+  .auth-form p {
+    text-align: center;
+    font-size: 1rem;
+  }
   /* Button styling */
   .form-btn {
     width: 100%;

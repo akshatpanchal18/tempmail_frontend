@@ -78,7 +78,6 @@ function Inbox({ emailId }) {
     setInbox([]);
     setSelectedEmail(null);
   };
-  const time = "2024-12-07T08:59:12.236Z";
   return (
     <Wrapper>
       <div className="inbox">
@@ -143,9 +142,9 @@ function Inbox({ emailId }) {
                       </h4>
                       <div className="close-div">
                         <span>
-                          <Timestamp timestamp={message.receivedAt} />
+                          {/* <Timestamp timestamp={message.receivedAt} /> */}
                         </span>
-                        {/* <span><Timestamp timestamp={time} /></span> */}
+                        
                         {/* <span>1m ago</span> */}
                         {/* <p onClick={() => setSelectedEmail(null)}>
                           <MdClose />

@@ -12,31 +12,32 @@ function Sidebar() {
   const [user, setUser] = useState({});
 
   useEffect(()=>{
-    const savedUser = JSON.parse(localStorage.getItem('user'));
+    const savedUser =localStorage.getItem('user');
     // console.log(savedUser);
     
     if (savedUser) {
-     setUser(savedUser)
-     
+     setUser(JSON.parse(savedUser))
     }
    },[])
-  const getUserData = async()=>{
-  try {
-    const response = await fetch('http://localhost:4000/api/v1/users/current-user',{
-      method:"GET",
-      headers:{ 'Content-Type': 'application/json' },
-      credentials:'include'
-    })
-    const result = await response.json()
-    setUser(result.data)
-    localStorage.setItem('user', JSON.stringify(user));
-    console.log("username",user);
-  } catch (error) { 
-  }
-}
-useEffect(() => {
-  getUserData(); 
-},[]);
+   console.log(user);
+   
+//   const getUserData = async()=>{
+//   try {
+//     const response = await fetch('http://localhost:4000/api/v1/users/current-user',{
+//       method:"GET",
+//       headers:{ 'Content-Type': 'application/json' },
+//       credentials:'include'
+//     })
+//     const result = await response.json()
+//     setUser(result.data)
+//     localStorage.setItem('user', JSON.stringify(user));
+//     console.log("username",user);
+//   } catch (error) { 
+//   }
+// }
+// useEffect(() => {
+//   getUserData(); 
+// },[]);
 
 
     

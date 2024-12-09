@@ -9,8 +9,18 @@ import UserData from "./Components/UserData";
 import MailInbox from "./Components/mailInbox";
 
 const Home = () => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated,user} = useAuth();
+  // const [isUser , setIsUser] = useState({})
   // console.log(user);
+  // useEffect(()=>{
+  //   setIsUser(user)
+  //   // const loginUserData = localStorage.getItem('user')
+  //   // // console.log(JSON.parse(loginUserData));
+    
+  //   // setIsUser(JSON.parse(loginUserData))
+  // },[])
+  // console.log(isUser);
+  
 
   return (
     <div>
@@ -19,7 +29,8 @@ const Home = () => {
           <>
             <div className="container">
               <div className="sidebar">
-                <UserData data={user} />
+                {/* <UserData data={isUser} /> */}
+                <UserData/>
               </div>
               {user && user?.createdMails && user?.createdMails?.length > 0 ? (
                 //  <p>This is a test</p>
@@ -63,6 +74,9 @@ const Wrapper = styled.section`
       display: flex;
       flex-direction: column;
     }
+      .sidebar{
+      width:100%;
+      }
   }
 `;
 export default Home;

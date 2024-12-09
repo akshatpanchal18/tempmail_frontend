@@ -10,16 +10,25 @@ function MailInbox() {
   const [getUserEmailId, setGetUserEmailId] = useState(""); // Initialize as an empty string
 
   useEffect(() => {
-    const userMail = localStorage.getItem("createdEmail");
-    const userMailId = localStorage.getItem("createdEmail_ID");
-
+    const userMail = localStorage.getItem("storedEmail");
+    const userMailId = localStorage.getItem("storedEmail_ID");
+  
     if (userMail) {
-      setGetUserEmail(JSON.parse(userMail)); // Set the email directly if it's a string
+      try {
+        setGetUserEmail(JSON.parse(userMail)); // Try parsing if it's JSON
+      } catch {
+        setGetUserEmail(userMail); // Use it as a plain string
+      }
     }
     if (userMailId) {
-      setGetUserEmailId(JSON.parse(userMailId)); // Set the email ID directly if it's a string
+      try {
+        setGetUserEmailId(JSON.parse(userMailId)); // Try parsing if it's JSON
+      } catch {
+        setGetUserEmailId(userMailId); // Use it as a plain string
+      }
     }
-  }, []); // Empty dependency array to run only on mount
+  }, []);
+  
 
   console.log("getUserEmail", getUserEmail);
   console.log("getUserEmailId", getUserEmailId);
@@ -84,6 +93,7 @@ const Wrapper = styled.div`
       padding: 1rem; /* Reduce padding */
       font-size: 1rem; /* Adjust font size for mobile */
       box-shadow: none; /* Optional: Remove shadow on mobile */
+      margin: 0.5rem auto;
     }
 
     .created-email p {

@@ -5,11 +5,17 @@ import { NavLink } from "react-router-dom";
 import { IoMdLogOut } from "react-icons/io";
 import { useAuth } from "../Contaxt/AuthContaxt";
 
-function UserData({ data }) {
+function UserData() {
   const [isData, setIsData] = useState(null);
+  const { logout,user } = useAuth();
   // console.log(isData);
+  useEffect(() => {
+    if (user) {
+      setIsData(user); // Update state with passed data
+    }
+  }, [user]);
 
-  const { logout } = useAuth();
+
   // console.log("UserData:",data);
   useEffect(() => {
     const savedData = localStorage.getItem("user");
@@ -18,11 +24,7 @@ function UserData({ data }) {
       setIsData(parsedData); // Set parsed data to state
     }
   }, []);
-  useEffect(() => {
-    if (data) {
-      setIsData(data); // Update state with passed data
-    }
-  }, [data]);
+  
 
   if (!isData) {
     return (
@@ -36,7 +38,6 @@ function UserData({ data }) {
   return (
     // <div>
     <Wrapper>
-      <div className="body">
         <div className="container">
           <div className="header">
             <h4>
@@ -56,9 +57,9 @@ function UserData({ data }) {
               <strong>@{isData.username}</strong>
               <p>{isData.email}</p>
             </div>
-            <div>
+            <>
               <IoMdLogOut className="logout" onClick={logout} />
-            </div>
+              </>
           </div>
           <div className="user-data">
             <h4>Created temp mail's:</h4>
@@ -72,11 +73,10 @@ function UserData({ data }) {
                 // </NavLink>
               ))
             ) : (
-              <p>No temporary emails created yet.</p>
+              <p>No temporary email created yet.</p>
             )}
           </div>
         </div>
-      </div>
     </Wrapper>
   );
 }
@@ -188,33 +188,51 @@ const Wrapper = styled.div`
       flex-direction: row; /* Stack elements vertically */
       // border-radius: 10px; /* Rounded corners for the container */
       box-shadow: none; /* Remove shadow for a flatter design */
-      width: fit-content;
+      // width: fit-content;
+      width:100%;
       // display:none;
+      // overflow:hidden;
     }
 
     .header {
-      display: none;
+      // display: none;
+      font-size:12px;
+      margin:0;
     }
+.user-img {
+    display: flex; /* Use flexbox to align image and text */
+    align-items: center; /* Center items vertically */
+    justify-content: flex-start; /* Align items to the start (left) */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    max-width: 100%; /* Make width fit content */
+    // overflow: hidden; /* Hide overflow */
+}
 
-    .user-img {
-      display: flex; /* Use flexbox to align image and text */
-      align-items: center; /* Center items vertically */
-      justify-content: center; /* Center items horizontally */
-      margin: 15px; /* Adjust bottom margin */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-      padding: 0.5rem 1rem;
-      border-radius: 10px;
-      width: fit-content;
-    }
     .m-data {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      overflow: hidden; /* Hide overflow */
+     max-width:100%;
+      width:90%;
     }
+      .user-img p {
+    max-width: calc(100% - 80px); /* Ensure text does not exceed available space, considering image width */
+    text-overflow: ellipsis; /* Show ellipsis for overflowing text */
+    white-space: nowrap; /* Prevent text wrapping */
+    font-size: 14px; /* Adjust font size for better readability */
+    margin: 0; /* Remove default margin for better alignment */
+}
+     
     .logout {
       display: flex;
+      // flex:auto;
+      // align-items: flex-end;
       font-size: 2rem;
-      margin-left: 40px;
+      // margin-left: 40px;
+      // margin-left: 4px;
       color: #007bff;
     }
     .user-img img {

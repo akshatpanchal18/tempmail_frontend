@@ -36,13 +36,13 @@ const HomeComponent = () => {
         }
 
         const data = await response.json(); // Parse the JSON response
-        console.log("Received Data:", data);
+        // console.log("Received Data:", data);
 
         // Update state
         setIsData(data.data);
         // Update other states
         localStorage.setItem("createdEmail", email); // Save email to localStorage
-        localStorage.setItem("createdEmail_ID", data.data.newEmail._id); // Save email to localStorage
+        localStorage.setItem("createdEmail_ID", data.data.newEmail._id); // Save email_id to localStorage
         localStorage.setItem("isShow", "true"); // Save isShow state
         setEmailCreated(true); // Mark email as created
         setIsShow(true); // Show success message or UI
@@ -57,7 +57,7 @@ const HomeComponent = () => {
     const storedEmail = localStorage.getItem("createdEmail");
     const storedId = localStorage.getItem("createdEmail_ID");
     const inboxVisible = localStorage.getItem("isShow");
-    console.log("storedId", storedId);
+    // console.log("storedId", storedId);
     if (storedEmail) {
       setEmailCreated(true);
       setIsData(storedId); // Populate isData with stored data
@@ -68,7 +68,7 @@ const HomeComponent = () => {
     }
   }, [isData]);
 
-  console.log("isData", isData);
+  // console.log("isData", isData);
 
   // Validate username to ensure it contains only alphanumeric characters
   const validateUsername = (value) => /^[a-zA-Z0-9]*$/.test(value);
@@ -82,7 +82,7 @@ const HomeComponent = () => {
     }
   };
 
-  console.log("Data After initializ:", isData);
+  // console.log("Data After initializ:", isData);
   // console.log(isData.newEmail._id);
 
   const id = isData?.newEmail?._id;
@@ -128,7 +128,7 @@ const HomeComponent = () => {
                 Your email address:{" "}
                 <strong>{localStorage.getItem("createdEmail")}</strong>
               </p>
-              {/* <button onClick={handelDeletEmail}><MdDeleteForever className='del-btn'/></button> */}
+              <button onClick={handelDeletEmail}><MdDeleteForever className='del-btn'/></button>
             </div>
           )}
 

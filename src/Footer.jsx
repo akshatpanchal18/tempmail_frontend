@@ -34,7 +34,7 @@ const Footer = () => {
     </div>
   </div>
   <div className="footer-copyright">
-    <p>&copy; {new Date().getFullYear()} <span>Email.temp</span>. All rights reserved.</p>
+    <p>&copy; {new Date().getFullYear()} <span>Email@temp</span>. All rights reserved.</p>
   </div>
 </footer>
 
