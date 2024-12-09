@@ -9,7 +9,7 @@ const ErrorContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 90vh;
   background-color: #f8f9fa; /* Light background color */
   text-align: center;
   padding: 20px;

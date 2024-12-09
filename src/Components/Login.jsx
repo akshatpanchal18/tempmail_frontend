@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 
 function AuthForm() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login ,URL} = useAuth();
   const [activeTab, setActiveTab] = useState("login");
   const [step, setStep] = useState("details");
   const [loginData, setLoginData] = useState({ email: "", password: "" });
@@ -26,7 +26,7 @@ function AuthForm() {
   const handleLoginSubmit = async () => {
     setError(""); // Clear previous errors
     try {
-      const response = await fetch("http://localhost:4000/api/v1/users/login", {
+      const response = await fetch(`${URL}/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginData),
@@ -51,7 +51,7 @@ function AuthForm() {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:4000/api/v1/users/register/temp-user",
+        `${URL}/v1/users/register/temp-user`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -81,7 +81,7 @@ function AuthForm() {
     setError(null); // Clear any previous error messages
     try {
       const response = await fetch(
-        "http://localhost:4000/api/v1/users/register/verify-otp",
+        `${URL}/users/register/verify-otp`,
         {
           method: "POST",
           headers: {

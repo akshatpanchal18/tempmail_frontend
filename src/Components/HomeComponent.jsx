@@ -4,6 +4,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import Inbox from "./Inbox";
 import InBoxA from "./InBoxA";
+import { useAuth } from "../Contaxt/AuthContaxt";
 
 const HomeComponent = () => {
   const [username, setUsername] = useState("");
@@ -12,6 +13,7 @@ const HomeComponent = () => {
   const [isData, setIsData] = useState();
   const [isShow, setIsShow] = useState(false);
   const [isId, setIsId] = useState("");
+  const {URL} = useAuth()
 
   const navigate = useNavigate();
 
@@ -22,7 +24,7 @@ const HomeComponent = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:4000/api/v1/email/create-email`,
+          `${URL}/email/create-email`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

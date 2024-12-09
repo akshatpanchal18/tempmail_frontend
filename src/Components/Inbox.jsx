@@ -9,12 +9,14 @@ import {
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaEnvelopeOpenText } from "react-icons/fa";
 import Timestamp from "../Utils/TimeStamps";
+import { useAuth } from "../Contaxt/AuthContaxt";
 
 function Inbox({ emailId }) {
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [loading, setLoading] = useState(false);
   const [inbox, setInbox] = useState([]);
   const [isData, setIsData] = useState(null);
+  const {URL} = useAuth()
 
   // console.log(inbox);
   const m_id = emailId
@@ -24,7 +26,7 @@ function Inbox({ emailId }) {
   const getInboxdetails = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/v1/inbox/inbox-data/mail/inboxes`,
+        `${URL}/inbox/inbox-data/mail/inboxes`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

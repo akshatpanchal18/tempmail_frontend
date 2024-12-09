@@ -7,6 +7,8 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [user, setUser] = useState({});
 
+  const URL = 'http://localhost:4000/api/v1'
+
   useEffect(() => {
     const storedAuth = localStorage.getItem('isAuthenticated');
     if (storedAuth === "true") {
@@ -26,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(true);
     setUserData(data);
     try {
-      const response = await fetch('http://localhost:4000/api/v1/users/current-user', {
+      const response = await fetch(`${URL}/users/current-user`, {
         method: "GET",
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -85,7 +87,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userData, user, login, logout, register }}>
+    <AuthContext.Provider value={{ isAuthenticated, userData, user, login, logout, register,URL }}>
       {children}
     </AuthContext.Provider>
   );
