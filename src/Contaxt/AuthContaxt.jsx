@@ -8,7 +8,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
 
-  const URL = 'https://tempmail-server.onrender.com'
+  // const URL = 'http://localhost:4000/api/v1'
+  const URL = 'https://tempmail-server.onrender.com/api/v1'
 
   useEffect(() => {
     const storedAuth = localStorage.getItem('isAuthenticated');

@@ -77,10 +77,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 50px 20px;
+  padding: 50px 30px;
   background-color: #f8f8f8;
   border-radius: 20px;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 1.5rem auto;
   box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.4);
 }

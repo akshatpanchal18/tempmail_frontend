@@ -19,7 +19,7 @@ const HomeComponent = () => {
 
   const handleCreateEmail = async () => {
     if (isValid && username !== "") {
-      const email = `${username}@temp.com`;
+      const email = `${username}@temp.42web.io`;
       console.log("Generated Email:", email);
 
       try {
@@ -113,7 +113,7 @@ const HomeComponent = () => {
                   placeholder="Enter username"
                   disabled={emailCreated} // Disable input once email is created
                 />
-                <span>@temp.com</span>
+                <span>@temp.42web.io</span>
                 <button
                   onClick={handleCreateEmail}
                   className="create-btn"
