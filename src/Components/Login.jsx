@@ -23,6 +23,9 @@ function AuthForm() {
   const [error, setError] = useState(""); // State for error messages
   const [success, setSuccess] = useState(false);
 
+  // console.log(URL);
+  
+
   const handleLoginSubmit = async () => {
     setError(""); // Clear previous errors
     try {
@@ -51,7 +54,7 @@ function AuthForm() {
     setLoading(true);
     try {
       const response = await fetch(
-        `${URL}/v1/users/register/temp-user`,
+        `${URL}/users/register/temp-user`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -98,7 +101,8 @@ function AuthForm() {
         setLoading(false);
         setSuccess(true); // Set success to true on successful verification
         setSignUpData("");
-        setStep("details")
+        setActiveTab('login')
+        setOtp('')
         // alert('Registration successful!');
         // Proceed to the next step or handle accordingly
       } else {

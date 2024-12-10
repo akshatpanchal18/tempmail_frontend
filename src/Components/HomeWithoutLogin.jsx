@@ -50,7 +50,7 @@ function HomeWithoutLogin() {
           </div>
           <img
             // src="https://via.placeholder.com/800x400"
-            src="/temp.png"
+            src="/email.avif"
             alt="Website introduction"
           />
         </section>
@@ -79,9 +79,10 @@ const Wrapper = styled.div`
   align-items: center;
   padding: 50px 20px;
   background-color: #f8f8f8;
-  border-radius: 10px;
+  border-radius: 20px;
   max-width: 1400px;
   margin: 1.5rem auto;
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
 .get-btn {
@@ -117,7 +118,7 @@ const Wrapper = styled.div`
 
 .hero-section img {
   max-width: 45%;
-  border-radius: 8px;
+  border-radius:10px;
 }
 
 /* Blog Section Styling */
@@ -146,6 +147,7 @@ const Wrapper = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
 .blog-card h3 {
