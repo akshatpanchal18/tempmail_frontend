@@ -101,7 +101,10 @@ function AuthForm() {
         setLoading(false);
         setSuccess(true); // Set success to true on successful verification
         setSignUpData("");
-        setActiveTab('login')
+        // setActiveTab('login')
+        setTimeout(() => {
+          setActiveTab('login'); // Switch to the login tab
+        }, 2000);
         setOtp('')
         // alert('Registration successful!');
         // Proceed to the next step or handle accordingly
@@ -146,6 +149,7 @@ function AuthForm() {
           <div className="auth-form">
             {/* <h2>Login</h2> */}
             <input
+            id="login-email"
               type="email"
               placeholder="Email"
               value={loginData.email}
@@ -154,6 +158,7 @@ function AuthForm() {
               }
             />
             <input
+            id="login-email-password"
               type="password"
               placeholder="Password"
               value={loginData.password}
@@ -172,6 +177,7 @@ function AuthForm() {
               <>
                 {/* <h2>Sign Up</h2> */}
                 <input
+                id="signup-email"
                   type="email"
                   placeholder="Email"
                   value={signUpData.email}
@@ -180,6 +186,7 @@ function AuthForm() {
                   }
                 />
                 <input
+                id="signup-username"
                   type="text"
                   placeholder="Username"
                   value={signUpData.username}
@@ -188,6 +195,7 @@ function AuthForm() {
                   }
                 />
                 <input
+                id="signup-email-password"
                   type="password"
                   placeholder="Password"
                   value={signUpData.password}
@@ -215,6 +223,7 @@ function AuthForm() {
               <>
                 <h2>Enter OTP</h2>
                 <input
+                id="signup-email-otp"
                   type="text"
                   placeholder="Enter OTP"
                   value={otp}

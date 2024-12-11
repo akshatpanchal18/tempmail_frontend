@@ -12,6 +12,9 @@ function MailInbox() {
   useEffect(() => {
     const userMail = localStorage.getItem("storedEmail");
     const userMailId = localStorage.getItem("storedEmail_ID");
+
+    // console.log("Stored Email from Local Storage:", userMail);
+    // console.log("Stored Email ID from Local Storage:", userMailId);
   
     if (userMail) {
       try {
@@ -22,7 +25,7 @@ function MailInbox() {
     }
     if (userMailId) {
       try {
-        setGetUserEmailId(JSON.parse(userMailId)); // Try parsing if it's JSON
+        setGetUserEmailId(userMailId); // Try parsing if it's JSON
       } catch {
         setGetUserEmailId(userMailId); // Use it as a plain string
       }
@@ -30,8 +33,8 @@ function MailInbox() {
   }, []);
   
 
-  console.log("getUserEmail", getUserEmail);
-  console.log("getUserEmailId", getUserEmailId);
+  // console.log("getUserEmail", getUserEmail,"Type:", typeof getUserEmail);
+  // console.log("getUserEmailId", getUserEmailId,"Type:", typeof getUserEmailId);
   return (
     <div>
       <Wrapper>

@@ -130,7 +130,7 @@ const HomeComponent = () => {
                 Your email address:{" "}
                 <strong>{localStorage.getItem("createdEmail")}</strong>
               </p>
-              <button onClick={handelDeletEmail}><MdDeleteForever className='del-btn'/></button>
+              {/* <button onClick={handelDeletEmail}><MdDeleteForever className='del-btn'/></button> */}
             </div>
           )}
 

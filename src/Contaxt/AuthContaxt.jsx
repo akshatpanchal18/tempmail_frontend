@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (data) => {
     setIsAuthenticated(true);
-    setUserData(data);
+    // setUserData(data);
     try {
       const response = await fetch(`${URL}/users/current-user`, {
         method: "GET",
@@ -71,14 +71,16 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     setUserData(null);
     setUser({});
-    localStorage.removeItem("isAuthenticated");
-    localStorage.removeItem("storedEmail");
-    localStorage.removeItem("storedEmail_ID");
-    localStorage.removeItem("createdEmail");
-    localStorage.removeItem("createdEmail_ID");
-    localStorage.removeItem('userLoginData');
-    localStorage.removeItem('isShow');
-    localStorage.removeItem('user');
+    // localStorage.removeItem("isAuthenticated");
+    // localStorage.removeItem("storedEmail");
+    // localStorage.removeItem("storedEmail_ID");
+    // localStorage.removeItem("createdEmail");
+    // localStorage.removeItem("createdEmail_ID");
+    // localStorage.removeItem('userLoginData');
+    // localStorage.removeItem('isShow');
+    // localStorage.removeItem('user');
+    localStorage.clear();
+    console.log("Local storage cleared:", localStorage);
   };
 
   const register = (data) => {
