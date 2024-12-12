@@ -65,7 +65,8 @@ function AuthForm() {
       const result = await response.json();
 
       if (response.ok) {
-        alert("OTP sent to your email.");
+        // alert("OTP sent to your email.");
+        setLoading(true)
         setStep("otp");
       } else {
         setError(result.message || "Failed to send OTP.");
@@ -205,7 +206,8 @@ function AuthForm() {
                 />
                 {loading ? (
                   <>
-                    <p style={{ color: "#007bff" }}>Loading ...</p>
+                    {/* <p style={{ color: "#007bff" }}>Loading ...</p> */}
+                    <p style={{ color: "#007bff" }}>OTP sent on {signUpData.email}</p>
                   </>
                 ) : (
                   <>
