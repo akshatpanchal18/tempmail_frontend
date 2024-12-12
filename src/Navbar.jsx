@@ -15,7 +15,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-logo">
         {/* <h1>Email.temp</h1> */}
-        <img className='logo' src="src\assets\logo.png" alt="" />
+        <img className='logo' src="/logo.png" alt="" />
       </div>
       <ul className={isMobile ? "navbar-links-mobile open" : "navbar-links"} onClick={() => setIsMobile(false)}>
       <li><NavLink  to="/" activeclassname="active">Home</NavLink></li>
