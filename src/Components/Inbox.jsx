@@ -416,7 +416,7 @@ const Wrapper = styled.section`
     .inbox-card {
       padding: 0.8rem;
       font-size: 0.9rem;
-      max-width: 300px;
+      max-width: 275px;
     }
 
     .inbox-card-header h4 {
