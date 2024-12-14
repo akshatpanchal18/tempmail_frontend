@@ -207,7 +207,8 @@ function AuthForm() {
                 {loading ? (
                   <>
                     {/* <p style={{ color: "#007bff" }}>Loading ...</p> */}
-                    <p style={{ color: "#007bff" }}>OTP sent on {signUpData.email}</p>
+                    <div className="dots"></div>
+                    <p style={{ color: "#007bff" }}>sending OTP ...</p>
                   </>
                 ) : (
                   <>
@@ -232,11 +233,8 @@ function AuthForm() {
                   onChange={(e) => setOtp(e.target.value)}
                 />
                   {/* <p>Request New OTP...</p> */}
-                {loading && <p style={{ color: "#007bff" }}>Verifying...</p>} {/* Show loading text */}
-                {success && <p style={{ color: "green" }}>Registration Success</p>}{" "}
-                {/* Show success text */}
-                {/* {error && <p style={{ color: "red" }}>{error}</p>}{" "} */}
-                {/* Show error text */}
+                {loading && <p style={{ color: "#007bff" }}>Verifying...</p>} 
+                {success && <p style={{ color: "green" }}>Registration Success</p>}
                 <button className="form-btn" onClick={handleOtpSubmit}>
                   Verify OTP
                 </button>
@@ -251,6 +249,46 @@ function AuthForm() {
 
 const Wrapper = styled.div`
   /* Container for the entire form */
+  //loader
+  .dots {
+  position: relative;
+    left: 45%;
+    margin: 10px 0;
+   width: 13.4px;
+   height: 13.4px;
+   border-radius: 50%;
+   clip-path: inset(-28px -112px);
+   color: #007bff;
+   box-shadow: 21.3px -44.8px,42.6px -44.8px,63.8px -44.8px;
+   transform: translateX(-42.6px);
+   animation: dots-y3c9ksmd 1s infinite;
+}
+
+@keyframes dots-y3c9ksmd {
+   16.67% {
+      box-shadow: 21.3px 0px,42.6px -44.8px,63.8px -44.8px;
+   }
+
+   33.33% {
+      box-shadow: 21.3px  0px,42.6px   0px,63.8px -44.8px;
+   }
+
+   45%, 55% {
+      box-shadow: 21.3px  0px,42.6px   0px,63.8px   0px;
+   }
+
+   66.67% {
+      box-shadow: 21.3px 44.8px,42.6px   0px,63.8px   0px;
+   }
+
+   83.33% {
+      box-shadow: 21.3px 44.8px,42.6px  44.8px,63.8px   0px;
+   }
+
+   100% {
+      box-shadow: 21.3px 44.8px,42.6px  44.8px,63.8px  44.8px;
+   }
+}
 
   .auth-form-container {
     width: 400px;

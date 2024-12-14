@@ -2,13 +2,16 @@ import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { useAuth } from './Contaxt/AuthContaxt';
+
+
 function Navbar() {
     const [isMobile, setIsMobile] = useState(false);
+    const { isAuthenticated, logout } = useAuth();
 
   const toggleMobileMenu = () => {
     setIsMobile(!isMobile);
   };
-  const { isAuthenticated, logout } = useAuth();
+  
   return (
     <Nav>
     <div>
@@ -19,9 +22,6 @@ function Navbar() {
       </div>
       <ul className={isMobile ? "navbar-links-mobile open" : "navbar-links"} onClick={() => setIsMobile(false)}>
       <li><NavLink  to="/" activeclassname="active">Home</NavLink></li>
-      {/* <li><NavLink exact to="/service" activeClassName="active">Service</NavLink></li>
-        <li><NavLink exact to="/about" activeClassName="active">About</NavLink></li>
-        <li><NavLink exact to="/contact" activeClassName="active">Contact</NavLink></li> */}
          <li>{isAuthenticated ? (
         <NavLink to="/" onClick={logout}>Logout</NavLink>
       ) : (

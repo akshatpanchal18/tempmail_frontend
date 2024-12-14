@@ -38,11 +38,11 @@ export const AuthProvider = ({ children }) => {
       const result = await response.json();
 
       if (response.ok) {
-        console.log("auth User result", result);
+        // console.log("auth User result", result);
 
         // Correctly set user data from response
         setUser(result.data); // Make sure result.data contains the user object
-        console.log("after setting user", user); // Log the user data directly
+        // console.log("after setting user", user); // Log the user data directly
         
         // Store in local storage
         localStorage.setItem("isAuthenticated", "true");
@@ -63,22 +63,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Log the user state whenever it changes
-  useEffect(() => {
-    console.log("Updated user state:", user);
-  }, [user]);
+  // useEffect(() => {
+  //   console.log("Updated user state:", user);
+  // }, [user]);
 
   const logout = () => {
     setIsAuthenticated(false);
     setUserData(null);
     setUser({});
-    // localStorage.removeItem("isAuthenticated");
-    // localStorage.removeItem("storedEmail");
-    // localStorage.removeItem("storedEmail_ID");
-    // localStorage.removeItem("createdEmail");
-    // localStorage.removeItem("createdEmail_ID");
-    // localStorage.removeItem('userLoginData');
-    // localStorage.removeItem('isShow');
-    // localStorage.removeItem('user');
     localStorage.clear();
     console.log("Local storage cleared:", localStorage);
   };

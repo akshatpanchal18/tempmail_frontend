@@ -22,7 +22,7 @@ function Inbox({ emailId }) {
 
   const getInboxdetails = async () => {
     try {
-      console.log("Fetching inbox details...");
+      // console.log("Fetching inbox details...");
       const response = await fetch(`${URL}/inbox/inbox-data/mail/inboxes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
