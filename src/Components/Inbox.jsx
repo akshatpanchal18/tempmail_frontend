@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import {
   MdOutlineRefresh,
@@ -16,32 +16,24 @@ function Inbox({ emailId }) {
   const [loading, setLoading] = useState(false);
   const [inbox, setInbox] = useState([]);
   const [isData, setIsData] = useState(null);
-  const {URL} = useAuth()
+  const { URL } = useAuth();
 
-  // console.log(inbox);
-  const m_id = emailId
-  console.log("emailId",emailId)
-  // console.log("userData", userData);
-  console.log("mail", m_id);
+  const m_id = useMemo(() => emailId, [emailId]);
+
   const getInboxdetails = async () => {
     try {
-      const response = await fetch(
-        `${URL}/inbox/inbox-data/mail/inboxes`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mailid: m_id }),
-          credentials: "include",
-        }
-      );
+      console.log("Fetching inbox details...");
+      const response = await fetch(`${URL}/inbox/inbox-data/mail/inboxes`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mailid: m_id }),
+        credentials: "include",
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      // console.log(data);
       setIsData(data.data);
-      // console.log(isData);
-      // console.log(isData.messages);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -52,34 +44,32 @@ function Inbox({ emailId }) {
   }, [m_id]);
 
   useEffect(() => {
-    if (isData && isData.messages) {
+    if (isData?.messages) {
       const sorted = [...isData.messages].sort(
         (a, b) => new Date(b.receivedAt) - new Date(a.receivedAt)
       );
       setInbox(sorted);
     }
-    // setInbox(data?.messages || [])
-  }, [isData]); // Only runs when data changes
-
+  }, [isData]);
   const emailCount = inbox?.length || 0;
   const handleView = (email, id) => {
     // Toggle email details visibility
     setSelectedEmail(selectedEmail?._id === email._id ? null : email);
   };
 
+
+
   const handleRefresh = () => {
     setLoading(true);
-    // Simulate data refresh
-    window.location.reload();
+    window.location.reload(); // Keep only if needed
     setTimeout(() => {
       setLoading(false);
     }, 1000);
   };
-
   const handleDeleteAll = () => {
     setInbox([]);
     setSelectedEmail(null);
-  };
+  }; 
   return (
     <Wrapper>
       <div className="inbox">
@@ -159,6 +149,7 @@ function Inbox({ emailId }) {
                         {/* <strong>Subject:</strong>  */}
                       </p>
                       <p>{selectedEmail.text}</p>
+                      <p>{selectedEmail.html}</p>
                       {/* <p>Text:</p> */}
                     </div>
                     <p>
@@ -353,15 +344,29 @@ const Wrapper = styled.section`
   }
 
   // email details
+  // .email-details {
+  //   // background-color: #f9f9f9;
+  //   background-color: #edf5fc;
+  //   // border: 1px solid #ddd;
+  //   padding: 20px;
+  //   margin-top: 10px;
+  //   border-radius: 8px;
+  //   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  //   max-width:100%;
+  // }
+
   .email-details {
-    // background-color: #f9f9f9;
-    background-color: #edf5fc;
-    // border: 1px solid #ddd;
-    padding: 20px;
-    margin-top: 10px;
-    border-radius: 8px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  }
+  background-color: #edf5fc;
+  padding: 20px;
+  margin-top: 10px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 719px;
+  word-wrap: break-word; /* Ensures words break to fit within the container */
+  overflow-wrap: break-word; /* Handles long unbroken strings */
+  white-space: pre-wrap; /* Preserves formatting while allowing line breaks */
+}
+
   .email-header {
     display: flex;
     justify-content: space-between;
@@ -424,6 +429,13 @@ const Wrapper = styled.section`
       padding: 5px;
       border-radius: 5px;
     }
+      .email-details{
+      max-width:274px;
+      }
+      .email-body{
+      overflow:scroll;
+      flex-wrap:wrap;
+      }
   }
 `;
 
