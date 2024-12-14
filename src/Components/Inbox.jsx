@@ -40,8 +40,11 @@ function Inbox({ emailId }) {
   };
 
   useEffect(() => {
-    getInboxdetails();
+    if (m_id) {
+      getInboxdetails();
+    }
   }, [m_id]);
+  
 
   useEffect(() => {
     if (isData?.messages) {
