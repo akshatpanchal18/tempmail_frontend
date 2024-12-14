@@ -28,6 +28,7 @@ function AuthForm() {
 
   const handleLoginSubmit = async () => {
     setError(""); // Clear previous errors
+    setLoading(true)
     try {
       const response = await fetch(`${URL}/users/login`, {
         method: "POST",
@@ -39,6 +40,7 @@ function AuthForm() {
 
       if (response.ok) {
         login(loginData);
+        setLoading(false)
         navigate("/");
       } else {
         setError(result.message || "Failed to log in.");
@@ -167,6 +169,15 @@ function AuthForm() {
                 setLoginData({ ...loginData, password: e.target.value })
               }
             />
+            {
+              loading ?(
+              <>
+                <div className="dots"></div>
+              </>
+              ):(
+                <></>
+              )
+            }
             <button className="form-btn" onClick={handleLoginSubmit}>
               Login
             </button>

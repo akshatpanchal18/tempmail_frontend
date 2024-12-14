@@ -398,7 +398,12 @@ const Wrapper = styled.section`
     .inbox {
       padding: 1rem;
     }
-
+    .inbox-items{
+    padding:0.5rem;
+    }
+    .email-icon{
+    margin-left:6px;
+    }
     .inbox h3 {
       font-size: 1.2rem;
     }
