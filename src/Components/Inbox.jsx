@@ -57,8 +57,6 @@ function Inbox({ emailId }) {
     setSelectedEmail(selectedEmail?._id === email._id ? null : email);
   };
 
-
-
   const handleRefresh = () => {
     setLoading(true);
     window.location.reload(); // Keep only if needed
@@ -69,7 +67,7 @@ function Inbox({ emailId }) {
   const handleDeleteAll = () => {
     setInbox([]);
     setSelectedEmail(null);
-  }; 
+  };
   return (
     <Wrapper>
       <div className="inbox">
@@ -136,7 +134,7 @@ function Inbox({ emailId }) {
                         <span>
                           {/* <Timestamp timestamp={message.receivedAt} /> */}
                         </span>
-                        
+
                         {/* <span>1m ago</span> */}
                         {/* <p onClick={() => setSelectedEmail(null)}>
                           <MdClose />
@@ -149,7 +147,14 @@ function Inbox({ emailId }) {
                         {/* <strong>Subject:</strong>  */}
                       </p>
                       <p>{selectedEmail.text}</p>
-                      <p>{selectedEmail.html}</p>
+                      <a
+                        href={selectedEmail.html}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {selectedEmail.html}
+                      </a>
+
                       {/* <p>Text:</p> */}
                     </div>
                     <p>
@@ -344,36 +349,31 @@ const Wrapper = styled.section`
   }
 
   // email details
-  // .email-details {
-  //   // background-color: #f9f9f9;
-  //   background-color: #edf5fc;
-  //   // border: 1px solid #ddd;
-  //   padding: 20px;
-  //   margin-top: 10px;
-  //   border-radius: 8px;
-  //   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  //   max-width:100%;
-  // }
 
   .email-details {
-  background-color: #edf5fc;
-  padding: 20px;
-  margin-top: 10px;
-  border-radius: 8px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  max-width: 719px;
-  word-wrap: break-word; /* Ensures words break to fit within the container */
-  overflow-wrap: break-word; /* Handles long unbroken strings */
-  white-space: pre-wrap; /* Preserves formatting while allowing line breaks */
-}
-
+    background-color: #edf5fc;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 719px;
+    word-wrap: break-word; /* Ensures words break to fit within the container */
+    overflow-wrap: break-word; /* Handles long unbroken strings */
+    white-space: pre-wrap; /* Preserves formatting while allowing line breaks */
+    display: -webkit-box; /* Use Webkit box model (works in modern browsers) */
+    -webkit-box-orient: vertical;
+  }
+  .email-body {
+    max-width: 100%;
+  }
   .email-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   .email-header p {
-    font-size: 1.5rem;
+    // font-size: 1.5rem;
+    font-size: clamp(12px, 5vw, 18px);
     // color:#007bff;
     color: black;
     cursor: pointer;
@@ -408,6 +408,7 @@ const Wrapper = styled.section`
     .inbox-card {
       padding: 0.8rem;
       font-size: 0.9rem;
+      max-width: 300px;
     }
 
     .inbox-card-header h4 {
@@ -429,13 +430,6 @@ const Wrapper = styled.section`
       padding: 5px;
       border-radius: 5px;
     }
-      .email-details{
-      max-width:274px;
-      }
-      .email-body{
-      overflow:scroll;
-      flex-wrap:wrap;
-      }
   }
 `;
 
