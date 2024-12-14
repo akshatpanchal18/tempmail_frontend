@@ -12,26 +12,22 @@ const HomeComponent = () => {
   const [emailCreated, setEmailCreated] = useState(false);
   const [isData, setIsData] = useState();
   const [isShow, setIsShow] = useState(false);
-  const [isId, setIsId] = useState("");
-  const {URL} = useAuth()
-
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const { URL } = useAuth();
 
   const handleCreateEmail = async () => {
+    setIsLoading(true);
     if (isValid && username !== "") {
       const email = `${username}@temp.42web.io`;
       console.log("Generated Email:", email);
 
       try {
-        const response = await fetch(
-          `${URL}/email/create-email`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ tempEmail: email }),
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${URL}/email/create-email`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tempEmail: email }),
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -47,6 +43,7 @@ const HomeComponent = () => {
         localStorage.setItem("createdEmail_ID", data.data.newEmail._id); // Save email_id to localStorage
         localStorage.setItem("isShow", "true"); // Save isShow state
         setEmailCreated(true); // Mark email as created
+        setIsLoading(false);
         setIsShow(true); // Show success message or UI
       } catch (error) {
         console.error("Error creating email:", error.message);
@@ -142,6 +139,9 @@ const HomeComponent = () => {
           )}
         </div>
       </Wrapper>
+      <Loadder>
+      {isLoading ? <div className="dots"></div> : <></>}
+      </Loadder>
       {isShow ? (
         <>
           {/* data */}
@@ -156,7 +156,48 @@ const HomeComponent = () => {
     </>
   );
 };
+const Loadder = styled.div`
+ //loader
+  .dots {
+  position: relative;
+    left: 48%;
+    margin: 10px 0;
+   width: 13.4px;
+   height: 13.4px;
+   border-radius: 50%;
+   clip-path: inset(-28px -112px);
+   color: #007bff;
+   box-shadow: 21.3px -44.8px,42.6px -44.8px,63.8px -44.8px;
+   transform: translateX(-42.6px);
+   animation: dots-y3c9ksmd 1s infinite;
+}
 
+@keyframes dots-y3c9ksmd {
+   16.67% {
+      box-shadow: 21.3px 0px,42.6px -44.8px,63.8px -44.8px;
+   }
+
+   33.33% {
+      box-shadow: 21.3px  0px,42.6px   0px,63.8px -44.8px;
+   }
+
+   45%, 55% {
+      box-shadow: 21.3px  0px,42.6px   0px,63.8px   0px;
+   }
+
+   66.67% {
+      box-shadow: 21.3px 44.8px,42.6px   0px,63.8px   0px;
+   }
+
+   83.33% {
+      box-shadow: 21.3px 44.8px,42.6px  44.8px,63.8px   0px;
+   }
+
+   100% {
+      box-shadow: 21.3px 44.8px,42.6px  44.8px,63.8px  44.8px;
+   }
+
+`
 const Wrapper = styled.section`
   /* Home.css */
   .home {
