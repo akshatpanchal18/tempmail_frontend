@@ -67,12 +67,14 @@ export const AuthProvider = ({ children }) => {
   //   console.log("Updated user state:", user);
   // }, [user]);
 
-  const logout = () => {
+  const logout = async() => {
     setIsAuthenticated(false);
     setUserData(null);
     setUser({});
     localStorage.clear();
     console.log("Local storage cleared:", localStorage);
+
+    await fetch(`${URL}/users/logout`, { method: 'POST', credentials: 'include' });
   };
 
   const register = (data) => {
