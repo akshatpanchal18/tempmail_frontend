@@ -37,13 +37,33 @@ function AuthForm() {
         credentials: "include",
       });
       const result = await response.json();
-
-      if (response.ok) {
+      if (!response.ok) {
+        switch (response.status) {
+          case 400:
+            setError("Bad request. Please check your inputs.");
+            setLoading(false)
+            break;
+          case 401:
+            setError("Unauthorized! Invalid credentials.");
+            setLoading(false)
+            break;
+          case 404:
+            setError("User not found. Please register first.");
+            setLoading(false)
+            break;
+          case 500:
+            setError("Server error. Please try again later.");
+            setLoading(false)
+            break;
+          default:
+            setError(result.message || "An unknown error occurred.");
+        }
+        return; // Exit early if there's an error
+      }
+      if(response.status === 200){
         login(loginData);
         setLoading(false)
         navigate("/");
-      } else {
-        setError(result.message || "Failed to log in.");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -65,13 +85,32 @@ function AuthForm() {
         }
       );
       const result = await response.json();
-
-      if (response.ok) {
-        // alert("OTP sent to your email.");
+      if (!response.ok) {
+        switch (response.status) {
+          case 400:
+            setError("Bad request. Please check your inputs.");
+            setLoading(false)
+            break;
+          case 401:
+            setError("Invalid OTP.");
+            setLoading(false)
+            break;
+          case 402:
+            setError("OTP expired.");
+            setLoading(false)
+            break;
+          case 403:
+            setError("Username or email already exist.");
+            setLoading(false)
+            break;
+            default:
+            setError(result.message || "An unknown error occurred.");
+        }
+        return; // Exit early if there's an error
+      }
+      if(response.status === 200){
         setLoading(true)
         setStep("otp");
-      } else {
-        setError(result.message || "Failed to send OTP.");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -99,21 +138,37 @@ function AuthForm() {
         }
       );
       const result = await response.json();
-
-      if (response.ok) {
+      if (!response.ok) {
+        switch (response.status) {
+          case 400:
+            setError("Bad request. Please check your inputs.");
+            setLoading(false)
+            break;
+          case 401:
+            setError("Invalid OTP.");
+            setLoading(false)
+            break;
+          case 402:
+            setError("OTP expired.");
+            setLoading(false)
+            break;
+            default:
+            setError(result.message || "An unknown error occurred.");
+        }
+        return; // Exit early if there's an error
+      }
+      if(response.status === 201){
         setLoading(false);
         setSuccess(true); // Set success to true on successful verification
         setSignUpData("");
-        // setActiveTab('login')
+        setLoginData({
+          email:signUpData.email,
+          password:signUpData.password
+        })
         setTimeout(() => {
           setActiveTab('login'); // Switch to the login tab
         }, 2000);
         setOtp('')
-        // alert('Registration successful!');
-        // Proceed to the next step or handle accordingly
-      } else {
-        setLoading(false); // Stop loading if there's an error
-        setError(result.message || "Invalid OTP.");
       }
     } catch (error) {
       console.error("Error:", error);
